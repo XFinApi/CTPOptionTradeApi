@@ -70,25 +70,25 @@ public:
 
 	Config()
 	{
-		//注册CTPOption仿真交易账号，www.simnow.com.cn，仅支持期货模拟。期权模拟需在期货公司申请开户。
+		//期权模拟需在期货公司申请开户。
 
 		//交易时段
-		MarketAddress = "180.168.146.187:10010";
-		TradeAddress = "180.168.146.187:10000";
+		MarketAddress = "";
+		TradeAddress = "";
 
-		BrokerID = "9999";
-		UserName = "119486";//公用测试账户。为了测试准确，请注册使用您自己的账户。
-		Password = "a123456";
+		BrokerID = "";
+		UserName = "";
+		Password = "";
 
-		InstrumentID = "au1906";
+		InstrumentID = "";
 	}
 
 	void SetNonTradeTime()
 	{
 		//非交易时间
 		//下午收盘后，或放假时间
-		MarketAddress = "180.168.146.187:10031";
-		TradeAddress = "180.168.146.187:10030";
+		MarketAddress = "";
+		TradeAddress = "";
 	}
 };
 
@@ -535,7 +535,13 @@ void TradeTest()
 
 int main()
 {
-	//可在Config类中修改用户名、密码、合约等信息
+	//请先在Config类中设置地址、BrokerID、用户名、密码等信息
+	if (Cfg.TradeAddress == "" || Cfg.MarketAddress == "" || Cfg.BrokerID == "" ||
+		Cfg.UserName == "" || Cfg.Password == "")
+	{
+		std::cout << "请先在Config类中设置地址账户等信息.\n";
+		getchar();
+	}
 
 	MarketTest();
 	TradeTest();
